@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>タッケン3ヶ月 — 宅建士 合格アプリ</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <h1>🏠 タッケン3ヶ月</h1>
+  <p class="tagline">初学者が3ヶ月で宅建士に合格するためのアプリ</p>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-view="home">🏠 ホーム</button>
+  <button class="tab" data-view="plan">🗓 学習計画</button>
+  <button class="tab" data-view="quiz">⭕ 一問一答</button>
+  <button class="tab" data-view="review">🔁 弱点復習</button>
+  <button class="tab" data-view="mock">📝 ミニ模試</button>
+  <button class="tab" data-view="stats">📊 成績</button>
+</nav>
+
+<main id="main">
+  <!-- ========== ホーム ========== -->
+  <section id="view-home" class="view active">
+    <div class="card countdown-card">
+      <div class="countdown-num" id="countdown-days">--</div>
+      <div class="countdown-label">試験日(<span id="exam-date-label"></span>)まで あと<b>日</b></div>
+    </div>
+
+    <div class="card">
+      <h2>📌 今日のタスク(<span id="today-week"></span>)</h2>
+      <div id="today-tasks"></div>
+    </div>
+
+    <div class="card">
+      <h2>📈 学習状況</h2>
+      <div class="summary-grid">
+        <div class="summary-item"><div class="summary-num" id="sum-answered">0</div><div class="summary-label">累計解答数</div></div>
+        <div class="summary-item"><div class="summary-num" id="sum-accuracy">--%</div><div class="summary-label">全体正答率</div></div>
+        <div class="summary-item"><div class="summary-num" id="sum-due">0</div><div class="summary-label">今日の復習</div></div>
+        <div class="summary-item"><div class="summary-num" id="sum-streak">0</div><div class="summary-label">連続学習日数</div></div>
+      </div>
+    </div>
+
+    <div class="card strategy-card">
+      <h2>🎯 合格戦略(38点プラン)</h2>
+      <table class="strategy-table">
+        <tr><th>分野</th><th>出題</th><th>目標</th><th>方針</th></tr>
+        <tr><td>宅建業法</td><td>20問</td><td><b>18点</b></td><td>暗記中心。最優先で満点を狙う</td></tr>
+        <tr><td>法令上の制限</td><td>8問</td><td><b>6点</b></td><td>数字を表で暗記</td></tr>
+        <tr><td>税・その他</td><td>8問</td><td><b>6点</b></td><td>頻出パターンのみ。直前期に集中</td></tr>
+        <tr><td>権利関係</td><td>14問</td><td><b>8点</b></td><td>頻出テーマだけ。難問は捨てる</td></tr>
+      </table>
+      <p class="note">💡 合格ラインは例年34〜38点。満点ではなく「取れる問題を確実に」が3ヶ月合格のコツです。</p>
+    </div>
+  </section>
+
+  <!-- ========== 学習計画 ========== -->
+  <section id="view-plan" class="view">
+    <div class="card">
+      <h2>🗓 12週間ロードマップ</h2>
+      <p class="note">チェックすると保存されます。1日3〜4時間(平日2h+週末5h)が目安です。</p>
+      <div id="plan-list"></div>
+    </div>
+  </section>
+
+  <!-- ========== 一問一答 ========== -->
+  <section id="view-quiz" class="view">
+    <div class="card" id="quiz-setup">
+      <h2>⭕ 一問一答(○×)</h2>
+      <p class="note">分野を選んでスタート。間違えた問題は自動で「弱点復習」に登録されます。</p>
+      <div class="cat-buttons" id="quiz-cat-buttons"></div>
+    </div>
+    <div class="card hidden" id="quiz-panel"></div>
+  </section>
+
+  <!-- ========== 弱点復習 ========== -->
+  <section id="view-review" class="view">
+    <div class="card">
+      <h2>🔁 弱点復習(間隔反復)</h2>
+      <p class="note">間違えた問題が「1日後 → 3日後 → 7日後」に再出題されます。3回連続で正解すると卒業です。</p>
+      <div id="review-panel"></div>
+    </div>
+  </section>
+
+  <!-- ========== ミニ模試 ========== -->
+  <section id="view-mock" class="view">
+    <div class="card" id="mock-setup">
+      <h2>📝 ミニ模試(四肢択一)</h2>
+      <p class="note">本試験と同じ四肢択一形式です。8問 × 制限時間20分(本番と同じ1問あたり約2.4分ペース)。</p>
+      <button class="btn primary" id="mock-start">模試をはじめる</button>
+      <div id="mock-history"></div>
+    </div>
+    <div class="card hidden" id="mock-panel"></div>
+  </section>
+
+  <!-- ========== 成績 ========== -->
+  <section id="view-stats" class="view">
+    <div class="card">
+      <h2>📊 分野別正答率</h2>
+      <div id="stats-bars"></div>
+    </div>
+    <div class="card">
+      <h2>🗂 データ管理</h2>
+      <p class="note">学習記録はこの端末のブラウザ内(localStorage)にのみ保存されています。</p>
+      <button class="btn danger" id="reset-data">学習記録をリセット</button>
+    </div>
+  </section>
+</main>
+
+<footer class="app-footer">
+  収録問題は学習用サンプルです。本番前には最新年度の教材・法改正・統計情報を必ず確認してください。
+</footer>
+
+<script src="js/questions.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

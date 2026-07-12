@@ -1,0 +1,171 @@
+/* ============ タッケン3ヶ月 スタイル ============ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --text: #1e293b;
+  --sub: #64748b;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --green: #059669;
+  --red: #dc2626;
+  --amber: #d97706;
+  --border: #e2e8f0;
+  --radius: 14px;
+}
+
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  padding-bottom: 60px;
+}
+
+.app-header {
+  background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+  color: #fff;
+  padding: 22px 16px 18px;
+  text-align: center;
+}
+.app-header h1 { font-size: 1.5rem; letter-spacing: 0.02em; }
+.tagline { font-size: 0.85rem; opacity: 0.9; }
+
+/* タブ */
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.tab {
+  flex: 1;
+  min-width: 92px;
+  padding: 12px 6px;
+  border: none;
+  background: none;
+  font-size: 0.82rem;
+  color: var(--sub);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+}
+.tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 700; }
+
+main { max-width: 720px; margin: 0 auto; padding: 16px; }
+
+.view { display: none; }
+.view.active { display: block; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 16px;
+}
+.card h2 { font-size: 1.05rem; margin-bottom: 10px; }
+.note { font-size: 0.82rem; color: var(--sub); margin-bottom: 10px; }
+.hidden { display: none !important; }
+
+/* カウントダウン */
+.countdown-card { text-align: center; background: linear-gradient(135deg, #0f172a, #1e3a8a); color: #fff; border: none; }
+.countdown-num { font-size: 3.4rem; font-weight: 800; line-height: 1.1; }
+.countdown-label { font-size: 0.9rem; opacity: 0.9; }
+
+/* サマリー */
+.summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.summary-item { text-align: center; background: var(--bg); border-radius: 10px; padding: 10px 4px; }
+.summary-num { font-size: 1.4rem; font-weight: 800; color: var(--primary); }
+.summary-label { font-size: 0.72rem; color: var(--sub); }
+
+/* 戦略表 */
+.strategy-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 8px; }
+.strategy-table th, .strategy-table td { border: 1px solid var(--border); padding: 6px 8px; text-align: left; }
+.strategy-table th { background: var(--bg); }
+
+/* 今日のタスク */
+.task-item { display: flex; gap: 8px; align-items: flex-start; padding: 6px 0; font-size: 0.92rem; }
+.task-item .dot { color: var(--primary); }
+
+/* 学習計画 */
+.plan-week { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+.plan-week-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px; background: var(--bg); cursor: pointer; font-weight: 700; font-size: 0.92rem;
+}
+.plan-week-header .phase { font-size: 0.72rem; font-weight: 400; color: var(--sub); }
+.plan-week-header.current { background: #dbeafe; }
+.plan-tasks { padding: 6px 14px; display: none; }
+.plan-week.open .plan-tasks { display: block; }
+.plan-task { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; font-size: 0.9rem; }
+.plan-task input { margin-top: 5px; transform: scale(1.2); }
+.plan-task.done label { text-decoration: line-through; color: var(--sub); }
+.plan-progress { font-size: 0.78rem; color: var(--sub); font-weight: 400; }
+
+/* クイズ */
+.cat-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cat-btn {
+  padding: 16px 10px; border-radius: 10px; border: 2px solid var(--border);
+  background: var(--card); font-size: 0.95rem; font-weight: 700; cursor: pointer; text-align: center;
+}
+.cat-btn small { display: block; font-weight: 400; color: var(--sub); font-size: 0.75rem; }
+.cat-btn:hover { border-color: var(--primary); }
+
+.quiz-progress { font-size: 0.8rem; color: var(--sub); margin-bottom: 8px; }
+.quiz-q { font-size: 1.02rem; font-weight: 600; margin-bottom: 16px; min-height: 3em; }
+.ox-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.btn {
+  padding: 13px 16px; border-radius: 10px; border: none; font-size: 1rem;
+  font-weight: 700; cursor: pointer; background: var(--bg); color: var(--text);
+}
+.btn.primary { background: var(--primary); color: #fff; }
+.btn.primary:hover { background: var(--primary-dark); }
+.btn.maru { background: #ecfdf5; color: var(--green); border: 2px solid var(--green); font-size: 1.5rem; }
+.btn.batsu { background: #fef2f2; color: var(--red); border: 2px solid var(--red); font-size: 1.5rem; }
+.btn.danger { background: #fef2f2; color: var(--red); border: 1px solid var(--red); font-size: 0.85rem; }
+.btn:disabled { opacity: 0.5; cursor: default; }
+
+.judge { font-size: 1.3rem; font-weight: 800; margin: 12px 0 6px; }
+.judge.ok { color: var(--green); }
+.judge.ng { color: var(--red); }
+.explanation {
+  background: #f8fafc; border-left: 4px solid var(--primary);
+  padding: 10px 12px; font-size: 0.88rem; border-radius: 0 8px 8px 0; margin-bottom: 14px;
+}
+.result-summary { text-align: center; padding: 10px 0; }
+.result-summary .big { font-size: 2.4rem; font-weight: 800; color: var(--primary); }
+
+/* 四択 */
+.choice-list { display: flex; flex-direction: column; gap: 10px; }
+.choice-btn {
+  text-align: left; padding: 12px 14px; border-radius: 10px;
+  border: 2px solid var(--border); background: var(--card); font-size: 0.9rem; cursor: pointer;
+}
+.choice-btn:hover { border-color: var(--primary); }
+.choice-btn.correct { border-color: var(--green); background: #ecfdf5; }
+.choice-btn.wrong { border-color: var(--red); background: #fef2f2; }
+.mock-timer { float: right; font-weight: 800; color: var(--red); font-size: 1.1rem; }
+
+/* 成績バー */
+.stat-row { margin-bottom: 14px; }
+.stat-row .stat-head { display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 4px; }
+.bar-bg { background: var(--bg); border-radius: 8px; height: 16px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 8px; transition: width 0.4s; }
+
+.review-empty { text-align: center; color: var(--sub); padding: 24px 0; font-size: 0.9rem; }
+.due-badge { display: inline-block; background: var(--red); color: #fff; border-radius: 999px; padding: 1px 9px; font-size: 0.75rem; margin-left: 6px; }
+
+.app-footer {
+  text-align: center; font-size: 0.72rem; color: var(--sub);
+  padding: 16px; max-width: 720px; margin: 0 auto;
+}
+
+@media (max-width: 480px) {
+  .summary-grid { grid-template-columns: repeat(2, 1fr); }
+  .countdown-num { font-size: 2.6rem; }
+}
