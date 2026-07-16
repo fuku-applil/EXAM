@@ -344,8 +344,13 @@ const DIFF_LABEL={easy:'やさしい',normal:'ふつう',hard:'むずかしい'}
 
 let difficulty='normal', puzzle=[], solution=[], user=[], given=[];
 let startTime=0, timerId=null, finished=false;
-let streak=0;
-const best={}; // keyed by `${N}-${difficulty}`
+
+// persistence — localStorage may be unavailable (private mode etc.)
+const store={
+  get(k){ try{ return localStorage.getItem('fireice-'+k); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem('fireice-'+k,v); }catch(e){} }
+};
+let streak=+store.get('streak')||0;
 
 const $=id=>document.getElementById(id);
 const boardEl=$('board');
@@ -356,6 +361,7 @@ function fmt(ms){
   return (s/60|0)+':'+String(s%60).padStart(2,'0');
 }
 const bestKey=()=>N+'-'+difficulty;
+const getBest=()=>{ const v=store.get('best-'+bestKey()); return v==null?null:+v; };
 
 function newGame(){
   const d=DIFF[N][difficulty];
@@ -364,7 +370,7 @@ function newGame(){
   setConstraints(consList);
   finished=false;
   $('overlay').classList.remove('show');
-  $('best').textContent = best[bestKey()]!=null ? fmt(best[bestKey()]) : '--';
+  $('best').textContent = getBest()!=null ? fmt(getBest()) : '--';
   buildBoard();
   startTime=Date.now();
   clearInterval(timerId);
@@ -469,9 +475,10 @@ function checkWin(){
   const ms=Date.now()-startTime;
   streak++;
   $('streak').textContent=streak;
-  const k=bestKey();
-  if(best[k]==null||ms<best[k]) best[k]=ms;
-  $('best').textContent=fmt(best[k]);
+  store.set('streak',streak);
+  const b=getBest();
+  if(b==null||ms<b) store.set('best-'+bestKey(),ms);
+  $('best').textContent=fmt(getBest());
   $('winTime').textContent=fmt(ms);
   $('winSub').textContent=`${N}×${N} ／ ${DIFF_LABEL[difficulty]} ／ 連続クリア ${streak}`;
   setTimeout(()=>$('overlay').classList.add('show'),300);
@@ -508,7 +515,7 @@ $('btnClear').addEventListener('click',()=>{
   if(finished) return;
   user=puzzle.slice(); paint();
 });
-function streakGuard(){ if(!finished){streak=0;$('streak').textContent=0;} }
+function streakGuard(){ if(!finished){streak=0;$('streak').textContent=0;store.set('streak',0);} }
 
 document.querySelectorAll('#diffSeg button').forEach(b=>{
   b.addEventListener('click',()=>{
@@ -529,6 +536,7 @@ document.querySelectorAll('#sizeSeg button').forEach(b=>{
   });
 });
 
+$('streak').textContent=streak;
 newGame();
 </script>
 </body>
